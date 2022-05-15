@@ -1,27 +1,26 @@
 
 class Coordinate():
-    connectGame = (380,459)
-    history = (875,412)
-    bet10 = (129,716)
-    bet20 = (190,716)
-    bet50 = (242, 716)
-    bet100 = (294, 716)
-    bet200 = (355, 176)
-    bet500 = (410,716)
-    comfirm = (680,722)
-    cancel = (837,722)
-    redBet = (351,667)
-    blackBet = (532,672)
-    greenBackground = (35,500)
-    trackHistory = (555,243)
-    redBetStat = (352,663)
+    connectGame = (783,561)
+    history = (1513,490)
+    bet10 = (439,944)
+    bet20 = (516,944)
+    bet50 = (600, 944)
+    bet100 = (677, 944)
+    bet200 = (767, 944)
+    bet500 = (841,944)
+    comfirm = (1243,956)
+    cancel = (1467,956)
+    redBet = (827,881)
+    blackBet = (1024,881)
+    greenBackground = (317,642)
+    trackHistory = (957,213)
+    betStatRound = (771,881)
     
 class Status():
-    #เช็คขากปุ่มเข้าเกมส์
-    disConnect = (225, 173, 136)
     #เช็คสีพื้นหลัง
-    connect =  (4, 8, 12)
-    
-
-    redBetWaiting = (6, 10, 17)
-    
+    connect =  (24, 79, 61)
+    redWin = (96, 0, 0)
+    blackWin = (0,0,0)
+    greenWin = (12, 71, 13)
+    redBetWaiting = (45, 0, 0)
+    redBetReady = (96, 0, 0)
