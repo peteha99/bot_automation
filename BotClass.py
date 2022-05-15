@@ -64,6 +64,16 @@ class Bot():
                 result = True
                 print("bet 4")
                 time.sleep(0.5)
+            case 3:
+                pyautogui.moveTo(Coordinate().bet50)
+                time.sleep(0.5)
+                Bot().mouse_action(1)
+                time.sleep(0.5)
+                pyautogui.moveTo(Coordinate().redBet)
+                Bot().mouse_action(8)
+                result = True
+                print("bet 8")
+                time.sleep(0.5)
             case _:
                 print("finish")
                 result = True
