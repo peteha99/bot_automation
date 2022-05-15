@@ -1,5 +1,5 @@
 from BotClass import Bot
-from ConfigClass import Status, Coordinate
+from AeConfigClass import Status, Coordinate
 
 bot = Bot()
 

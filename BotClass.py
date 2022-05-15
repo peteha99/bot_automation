@@ -2,12 +2,12 @@ from multiprocessing.connection import wait
 from PIL import ImageGrab
 import os
 import time
-from numpy import *
 
 import pyautogui
 from regex import B, P
-from ConfigClass import Coordinate
+from AeConfigClass import Coordinate
 class Bot():
+    pyautogui.FAILSAFE = False
     def __init__(self):
         self.image_grab = ImageGrab
         self.main_path = os.path.dirname(__file__)
@@ -73,6 +73,16 @@ class Bot():
                 Bot().mouse_action(8)
                 result = True
                 print("bet 8")
+                time.sleep(0.5)
+            case 4:
+                pyautogui.moveTo(Coordinate().bet50)
+                time.sleep(0.5)
+                Bot().mouse_action(1)
+                time.sleep(0.5)
+                pyautogui.moveTo(Coordinate().redBet)
+                Bot().mouse_action(16)
+                result = True
+                print("bet ")
                 time.sleep(0.5)
             case _:
                 print("finish")
