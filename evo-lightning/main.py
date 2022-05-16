@@ -4,29 +4,65 @@ import time
 bot = Bot()
 
 print(bot.grab_img().getpixel(Coordinate().betStatRound))
-
+balance4 = 10000
+balance8 = 10000
+balance16 = 10000
+balance32 = 10000
+total4 = 0
+total8 = 0
+total16 = 0
+total32 = 0
+betStack4 = 0
+betStack8 = 0
+betStack16 = 0
+betStack32 = 0
+betPrice = 10
 while True:
     loseCount = 0
-    
+    loseStack = 0
+    winner = 0
     while bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
         waitingRound = False
         betFinish = False
+        calculate = False
+        isContinueBet = False
         print("in loop connect")
         while bot.grab_img().getpixel(Coordinate().betStatRound) == Status().redBetReady and bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
-            print(loseCount)
+            print(loseStack)
+            print("total4",total4)
+            print("total8",total8)
+            print("total16",total16)
+            print("total32",total32)
             time.sleep(3)
             if(bot.grab_img().getpixel(Coordinate().trackHistory) != Status().redWin and waitingRound == False):
                 loseCount = loseCount + 1
+                loseStack = loseStack + 1
             elif (bot.grab_img().getpixel(Coordinate().trackHistory) == Status().redWin and waitingRound == False):
                 loseCount = 0
+                loseStack = 0
             waitingRound = True
+
+            if(loseCount >= 7):
+                loseCount = 0
+                isContinueBet = True
+            
+            if(loseCount == 0 and isContinueBet == False):
+                total4 = (betStack4 * 2) + balance4
+                total8 = (betStack8 * 2) + balance8
+                total16 = (betStack16 * 2) + balance16
+                total32 = (betStack32 * 2) + balance32 
             
             if(betFinish == False):
                 print("start bet")
-                print(betFinish)
-                betFinish = bot.running(loseCount)
-                print(betFinish)
-                
+                betStack4 = bot.running(loseCount,betPrice)
+                betStack8 = bot.running4(loseCount,betPrice)
+                betStack16 = bot.running16(loseCount,betPrice)
+                betStack32 = bot.running32(loseCount,betPrice)
+                total4 = balance4 - betStack4
+                total8 = balance8 - betStack8
+                total16 = balance16 - betStack16
+                total32 = balance32 - betStack32
+                betFinish = True
             
             
         while bot.grab_img().getpixel(Coordinate().betStatRound) != Status().redBetReady and bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
