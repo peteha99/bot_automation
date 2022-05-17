@@ -4,20 +4,20 @@ import time
 bot = Bot()
 
 print(bot.grab_img().getpixel(Coordinate().betStatRound))
-
+balance4 = 10000
+balance8 = 10000
+balance16 = 10000
+balance32 = 10000
+betPrice = 10
+loseCount = 0
+loseStack = 0
+winner = 0
+betStack4 = 0
+betStack8 = 0
+betStack16 = 0
+betStack32 = 0
 while True:
-    balance4 = 10000
-    balance8 = 10000
-    balance16 = 10000
-    balance32 = 10000
-    betPrice = 10
-    loseCount = 0
-    loseStack = 0
-    winner = 0
-    betStack4 = 0
-    betStack8 = 0
-    betStack16 = 0
-    betStack32 = 0
+    
     while bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
         waitingRound = False
         betFinish = False
