@@ -41,7 +41,7 @@ class Bot():
         action.click(clicks=1)
         time.sleep(10)
         
-    def running(self,loseCount,betPrice):
+    def running8(self,loseCount,betPrice):
         bet = 0
         match loseCount:
             case 0:
@@ -259,5 +259,84 @@ class Bot():
         pyautogui.moveTo(Coordinate().comfirm)
         time.sleep(0.5)
         # Bot().mouse_action(1)
+        bet = betPrice * bet
+        return bet
+    def running64(self,loseCount,betPrice):
+        bet = 0
+        match loseCount:
+            case 0:
+                # pyautogui.moveTo(Coordinate().bet10)
+                # time.sleep(0.5)
+                # Bot().mouse_action(1)
+                # time.sleep(0.5)
+                # pyautogui.moveTo(Coordinate().redBet)
+                # Bot().mouse_action(1)
+                bet = 1
+                print("bet 1")
+                # time.sleep(0.5)
+            case 1:
+                # pyautogui.moveTo(Coordinate().bet10)
+                # time.sleep(0.5)
+                # Bot().mouse_action(1)
+                # time.sleep(0.5)
+                # pyautogui.moveTo(Coordinate().redBet)
+                # Bot().mouse_action(2)
+                bet =2 
+                print("bet 2")
+                # time.sleep(0.5)
+            case 2:
+                # pyautogui.moveTo(Coordinate().bet10)
+                # time.sleep(0.5)
+                # Bot().mouse_action(1)
+                # time.sleep(0.5)
+                # pyautogui.moveTo(Coordinate().redBet)
+                # Bot().mouse_action(4)
+                bet = 4
+                print("bet 4")
+                # time.sleep(0.5)
+            case 3:
+                # pyautogui.moveTo(Coordinate().bet10)
+                # time.sleep(0.5)
+                # Bot().mouse_action(1)
+                # time.sleep(0.5)
+                # pyautogui.moveTo(Coordinate().redBet)
+                # Bot().mouse_action(8)
+                bet = 8
+                print("bet 8")
+                # time.sleep(0.5)
+            case 4:
+                # pyautogui.moveTo(Coordinate().bet10)
+                # time.sleep(0.5)
+                # Bot().mouse_action(1)
+                # time.sleep(0.5)
+                # pyautogui.moveTo(Coordinate().redBet)
+                # Bot().mouse_action(16)
+                bet = 16
+                print("bet 16")
+                # time.sleep(0.5)
+            case 5:
+                # pyautogui.moveTo(Coordinate().bet10)
+                # time.sleep(0.5)
+                # Bot().mouse_action(1)
+                # time.sleep(0.5)
+                # pyautogui.moveTo(Coordinate().redBet)
+                # Bot().mouse_action(32)
+                bet = 32
+                print("bet 32")
+                # time.sleep(0.5)
+            case 6:
+                # pyautogui.moveTo(Coordinate().bet10)
+                # time.sleep(0.5)
+                # Bot().mouse_action(1)
+                # time.sleep(0.5)
+                # pyautogui.moveTo(Coordinate().redBet)
+                # Bot().mouse_action(32)
+                bet = 64
+                print("bet 64")
+                # time.sleep(0.5)
+            case _:
+                print("nothing")
+        pyautogui.moveTo(Coordinate().comfirm)
+        time.sleep(0.5)
         bet = betPrice * bet
         return bet
