@@ -21,17 +21,26 @@ class Bot():
     def mouse_action(self,click):
         action = pyautogui
         action.click(clicks=click)
-        
-    def start_game(self):
+
+    def reconnect_game(self):
         print("game start")
         time.sleep(5)
         action = pyautogui
-        action.moveTo(Coordinate().connectGame)
-        action.click(clicks=2)
+        action.moveTo(Coordinate().closeTab)
+        action.click(clicks=1)
+        time.sleep(1)
+        action.moveTo(Coordinate().fullScreen)
+        action.click(1)
+        action.press("down",2)
+        action.moveTo(500,912)
+        time.sleep(2)
+        action.moveTo(451,979)
+        action.click(1)
         time.sleep(7)
-        action.moveTo(Coordinate().history)
+        action.moveTo(Coordinate().display)
         action.click(clicks=1)
         time.sleep(10)
+        
     def running(self,loseCount,betPrice):
         bet = 0
         match loseCount:

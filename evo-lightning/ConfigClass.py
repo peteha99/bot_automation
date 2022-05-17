@@ -1,6 +1,8 @@
 
 class Coordinate():
-    connectGame = (783,561)
+    closeTab = (1980,10)
+    playGame = (307,805)
+    fullScreen = (915,13)
     history = (1596,154)#
     bet10 = (813,973)#
     bet20 = (516,944)
@@ -15,6 +17,7 @@ class Coordinate():
     greenBackground = (345,1003)#
     trackHistory = (1379,189)#
     betStatRound = (159,716)#
+    display = (1554,80)
     
 class Status():
     #เช็คสีพื้นหลัง
