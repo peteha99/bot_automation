@@ -79,4 +79,4 @@ while True:
             print("waiting")
             
 
-    # bot.start_game()
+    bot.reconnect_game()
