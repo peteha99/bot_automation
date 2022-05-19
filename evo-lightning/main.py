@@ -1,10 +1,12 @@
 from BotClass import Bot
 from ConfigClass import Status, Coordinate
+from DbConnect import Profile
 import time
 bot = Bot()
+profile = Profile()
 
-print(bot.grab_img().getpixel(Coordinate().betStatRound))
-
+# print(bot.grab_img().getpixel(Coordinate().betStatRound))
+profile.all_profile()
 while True:
     balance4 = 10000
     balance8 = 10000
