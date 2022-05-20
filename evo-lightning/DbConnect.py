@@ -1,3 +1,5 @@
+from unittest import result
+from urllib import response
 import mysql.connector
 
 
@@ -159,6 +161,31 @@ class Profile(Database):
 
         return result
     
+    def profile_history_insert(self,data):
+        my_db = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="mysql",
+            database="automation"
+            )
+        insert_history = """INSERT INTO automation.profile_history
+                            (profile_id, game_history_id, win, create_at)
+                            VALUES(%s, %s, %s, %s);
+                            """
+        cursor = my_db.cursor()
+        try:
+            cursor.executemany(insert_history, data)
+        except Exception as e:
+            return e
+        my_db.commit()
+        print("Data inserted successfully.")
+        response = cursor.lastrowid
+        if(my_db.is_connected()):
+            cursor.close()
+            my_db.close()
+            print("MySQL connection is closed")
+        return response
+    
     def update_profile(self, profile):
         my_db = mysql.connector.connect(
             host="localhost",
@@ -167,11 +194,13 @@ class Profile(Database):
             database="automation"
             )
         cursor = my_db.cursor()
-        var_string = ', '.join('?' * len(profile))
-        query_string = 'INSERT INTO table VALUES (%s);' % var_string
+        sql = """UPDATE automation.profile
+                SET name=%s, solution_code=%s, balance=%s, descrition=%s, winrate=%s, create_at=%s WHERE id = {}""".format(
+            id)
+
         
         try:
-            cursor.execute(query_string, profile)
+            cursor.executemany(sql, profile)
             result = cursor.fetchall()
             
         except Exception as e:
@@ -179,5 +208,27 @@ class Profile(Database):
         
         return result
 
-# Database().__init__()
-# Database().connection()
+class Game(Database):
+    def save_game_history(self,data):
+        my_db = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="mysql",
+            database="automation"
+            )
+        insert_history = """INSERT INTO automation.game_history
+                            (color, stack, create_at)
+                            VALUES(%s, %s, %s);
+                            """
+        cursor = my_db.cursor()
+        try:
+            cursor.executemany(insert_history, data)
+        except Exception as e:
+            return e
+        my_db.commit()
+        print("Data inserted successfully.")
+
+        if(my_db.is_connected()):
+            cursor.close()
+            my_db.close()
+            print("MySQL connection is closed")

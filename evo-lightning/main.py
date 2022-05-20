@@ -1,10 +1,13 @@
 from BotClass import Bot
 from ConfigClass import Status, Coordinate
-from DbConnect import Profile
+from DbConnect import Profile,Game
 import time
+from datetime import datetime
 bot = Bot()
 profile = Profile()
+game = Game()
 # print(profile.all_profile())
+dataProfile = profile.all_profile()
 id = 0
 name = 1
 solutionCode = 2
@@ -13,11 +16,13 @@ descrition = 4
 winrate = 5
 
 
-dataProfile = profile.all_profile()
+resGameHistory = []
 betPrice = 25
 loseCount = 0
 loseStack = 0
+winStack = 0
 betStack = 0
+isWin = False
 # while True:
     
 #     while bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
@@ -100,7 +105,8 @@ betStack = 0
 
 
 
-
+now = datetime.now()
+timestamp = datetime.timestamp(now)
 while True:
     
     while bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
@@ -111,13 +117,18 @@ while True:
         while bot.grab_img().getpixel(Coordinate().betStatRound) == Status().redBetReady and bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
             print(loseStack)
             
-            time.sleep(3)
             if(bot.grab_img().getpixel(Coordinate().trackHistory) != Status().redWin and waitingRound == False):
+                gameHistoryData = [('BLACK',loseStack,timestamp)]
                 loseCount = loseCount + 1
                 loseStack = loseStack + 1
+                winStack = 0
+                resGameHistory = game.save_game_history(gameHistoryData)
             elif (bot.grab_img().getpixel(Coordinate().trackHistory) == Status().redWin and waitingRound == False):
                 loseCount = 0
                 loseStack = 0
+                winStack = winStack + 1
+                gameHistoryData = [('RED',winStack,timestamp)]
+                resGameHistory = game.save_game_history(gameHistoryData)
             waitingRound = True
 
             if(loseCount >= 7):
@@ -125,6 +136,7 @@ while True:
             
             if(loseCount == 0 and calculate == False):
                 print("calculate win")
+                isWin = True
                 for i in range(len(dataProfile)):
                     print(dataProfile[i][2])
                     temp = dataProfile[i][solutionCode] * 2
@@ -134,6 +146,10 @@ while True:
                 calculate = True
             
             if(betFinish == False):
+                tmpData = []
+                for i in range(len(dataProfile)):
+                    tmpData.append((dataProfile[i][id],resGameHistory,isWin))
+                profile.profile_history_insert(tmpData)
                 print("start bet")
                 for i in range(len(dataProfile)):
                     betStack = bot.running(loseCount,betPrice,dataProfile[i][solutionCode])
