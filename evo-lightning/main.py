@@ -4,21 +4,20 @@ from DbConnect import Profile
 import time
 bot = Bot()
 profile = Profile()
-print(profile.all_profile())
+# print(profile.all_profile())
+id = 0
+name = 1
+solutionCode = 2
+balance = 3
+descrition = 4
+winrate = 5
 
-balance4 = 10000
-balance8 = 10000
-balance16 = 10000
-balance32 = 10000
-balance64 = 10000
+
+dataProfile = profile.all_profile()
 betPrice = 25
 loseCount = 0
 loseStack = 0
-betStack4 = 0
-betStack8 = 0
-betStack16 = 0
-betStack32 = 0
-betStack64 = 0
+betStack = 0
 # while True:
     
 #     while bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
@@ -91,3 +90,60 @@ betStack64 = 0
             
 
 #     bot.reconnect_game()
+
+
+
+
+
+
+
+
+
+
+
+while True:
+    
+    while bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
+        waitingRound = False
+        betFinish = False
+        calculate = False
+        print("in loop connect")
+        while bot.grab_img().getpixel(Coordinate().betStatRound) == Status().redBetReady and bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
+            print(loseStack)
+            
+            time.sleep(3)
+            if(bot.grab_img().getpixel(Coordinate().trackHistory) != Status().redWin and waitingRound == False):
+                loseCount = loseCount + 1
+                loseStack = loseStack + 1
+            elif (bot.grab_img().getpixel(Coordinate().trackHistory) == Status().redWin and waitingRound == False):
+                loseCount = 0
+                loseStack = 0
+            waitingRound = True
+
+            if(loseCount >= 7):
+                loseCount = 0
+            
+            if(loseCount == 0 and calculate == False):
+                print("calculate win")
+                for i in range(len(dataProfile)):
+                    print(dataProfile[i][2])
+                    temp = dataProfile[i][solutionCode] * 2
+                    dataProfile[i][balance] = dataProfile[i][balance] + temp
+                    print("total",dataProfile[i][balance])
+                profile.update_profile(dataProfile)
+                calculate = True
+            
+            if(betFinish == False):
+                print("start bet")
+                for i in range(len(dataProfile)):
+                    betStack = bot.running(loseCount,betPrice,dataProfile[i][solutionCode])
+                    dataProfile[i][balance] = dataProfile[i][balance] + betStack
+                print("total",dataProfile[i][balance])
+                betFinish = True
+            
+            
+        while bot.grab_img().getpixel(Coordinate().betStatRound) != Status().redBetReady and bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
+            print("waiting")
+            
+
+    bot.reconnect_game()

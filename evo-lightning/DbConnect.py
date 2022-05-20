@@ -128,7 +128,7 @@ class Database:
 
 class Profile(Database):
 
-    def all_profile(self, mode='DESC'):
+    def all_profile(self, mode='ASC'):
         my_db = mysql.connector.connect(
             host="localhost",
             user="root",
@@ -157,6 +157,26 @@ class Profile(Database):
             return e
         
 
+        return result
+    
+    def update_profile(self, profile):
+        my_db = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="mysql",
+            database="automation"
+            )
+        cursor = my_db.cursor()
+        var_string = ', '.join('?' * len(profile))
+        query_string = 'INSERT INTO table VALUES (%s);' % var_string
+        
+        try:
+            cursor.execute(query_string, profile)
+            result = cursor.fetchall()
+            
+        except Exception as e:
+            return e
+        
         return result
 
 # Database().__init__()
