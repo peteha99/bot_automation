@@ -1,5 +1,4 @@
-from unittest import result
-from urllib import response
+
 import mysql.connector
 
 
