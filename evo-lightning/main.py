@@ -123,9 +123,11 @@ while True:
                 loseStack = loseStack + 1
                 winStack = 0
                 resGameHistory = game.save_game_history(gameHistoryData)
+                print("loseCount",loseCount)
             elif (bot.grab_img().getpixel(Coordinate().trackHistory) == Status().redWin and waitingRound == False):
                 loseCount = 0
                 loseStack = 0
+                print("loseCount",loseCount)
                 winStack = winStack + 1
                 gameHistoryData = [('RED',winStack,timestamp)]
                 resGameHistory = game.save_game_history(gameHistoryData)
