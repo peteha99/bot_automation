@@ -23,6 +23,7 @@ loseStack = 0
 winStack = 0
 betStack = 0
 isWin = False
+tmpBet = 0
 
 
 now = datetime.now()
@@ -50,6 +51,7 @@ while True:
             elif (bot.grab_img().getpixel(Coordinate().trackHistory) == Status().redWin and waitingRound == False):
                 loseCount = 0
                 loseStack = 0
+                tmpBet = 0
                 print("WIN")
                 print("loseCount",loseCount)
                 winStack = winStack + 1
@@ -85,8 +87,9 @@ while True:
                     tempBalance = item[balance] - betStack
                     profile.update_profile(tempBalance, item[0])
                     time.sleep(0.1)
-                
-                # bot.running_real(loseCount,10,4)
+                if(loseStack > 4 or loseStack == 0):
+                    tmpBet = tmpBet + 1
+                    bot.running_real(tmpBet,10,3)
                 print("betStack")
                 print(betStack)
                 dataProfile = profile.all_profile()
