@@ -11,7 +11,7 @@ class Database:
             my_db_init = mysql.connector.connect(
                 host="localhost",
                 user="root",
-                password="mysql"
+                password=""
             )
             cursor_init = my_db_init.cursor()
             
@@ -25,7 +25,7 @@ class Database:
             my_db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="mysql",
+            password="",
             database="automation"
             )
             cursor = my_db.cursor()
@@ -70,62 +70,8 @@ class Database:
             if my_db.is_connected():
                 cursor.close()
                 my_db.close()
-                print("MySQL connection is closed")
+                
         
-    # def connection(self):
-        
-    #     try:
-    #         my_db = mysql.connector.connect(
-    #         host="localhost",
-    #         user="root",
-    #         password="mysql",
-    #         database="automation"
-    #         )
-            
-    #         mySql_Create_Table_Query = """CREATE TABLE profile (
-    #                                     id int NOT NULL AUTO_INCREMENT,
-    #                                     name varchar(255) NOT NULL,
-    #                                     solution_code int NOT NULL,
-    #                                     balance int,
-    #                                     descrition text,
-    #                                     winrate float,
-    #                                     create_at timestamp,
-    #                                     PRIMARY KEY(id)
-    #                                     ) """
-
-    #         cursor = my_db.cursor()
-    #         cursor.execute(mySql_Create_Table_Query)
-            
-    #         cursor.execute("""CREATE TABLE game_history (
-    #                         id int NOT NULL AUTO_INCREMENT,
-    #                         color varchar(255),
-    #                         stack int,
-    #                         create_at timestamp,
-    #                         PRIMARY KEY(id)
-    #                         )""")
-            
-    #         cursor.execute("""
-    #                     CREATE TABLE profile_history (
-    #                     id int NOT NULL AUTO_INCREMENT,
-    #                     profile_id int NOT NULL,
-    #                     game_history_id int NOT NULL,
-    #                     win boolean,
-    #                     create_at timestamp,
-    #                     PRIMARY KEY(id),
-    #                     FOREIGN KEY (profile_id) REFERENCES profile(id),
-    #                     FOREIGN KEY (game_history_id) REFERENCES game_history(id)
-    #                     )""")
-            
-    #         print("Laptop Table created successfully ")
-
-    #     except mysql.connector.Error as error:
-    #         print("Failed to create table in MySQL: {}".format(error))
-    #     finally:
-    #         if my_db.is_connected():
-    #             cursor.close()
-    #             my_db.close()
-    #             print("MySQL connection is closed")
-
 
 class Profile(Database):
 
@@ -133,7 +79,7 @@ class Profile(Database):
         my_db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="mysql",
+            password="",
             database="automation"
             )
         cursor = my_db.cursor()
@@ -143,28 +89,31 @@ class Profile(Database):
             cursor.execute(sql)
             result = cursor.fetchall()
             
-            print("Total number of rows selected : ", cursor.rowcount)
+            # print("Total number of rows selected : ", cursor.rowcount)
 
-            print("\nSelected data are -")
+            # print("\nSelected data are -")
 
             for row in result:
-                print("Id : ",row[0])
-                print("Name : ",row[1])
+                # print("Id : ",row[0])
+                # print("Name : ",row[1])
                 print("Solution Code : ",row[2])
                 print("balance : ",row[3])
-                print("descrition : ",row[4])
-                print("winrate : ",row[4])
+                # print("descrition : ",row[4])
+                # print("winrate : ",row[4])
         except Exception as e:
             return e
         
-
+        if(my_db.is_connected()):
+            cursor.close()
+            my_db.close()
+            
         return result
     
     def profile_history_insert(self,data):
         my_db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="mysql",
+            password="",
             database="automation"
             )
         insert_history = """INSERT INTO automation.profile_history
@@ -182,28 +131,32 @@ class Profile(Database):
         if(my_db.is_connected()):
             cursor.close()
             my_db.close()
-            print("MySQL connection is closed")
+            
         return response
     
-    def update_profile(self, profile):
+    def update_profile(self, balance,id):
         my_db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="mysql",
+            password="",
             database="automation"
             )
         cursor = my_db.cursor()
-        sql = """UPDATE automation.profile
-                SET name=%s, solution_code=%s, balance=%s, descrition=%s, winrate=%s, create_at=%s WHERE id = {}""".format(
-            id)
+        data = (balance,id)
+        sql = """UPDATE profile SET balance=%s WHERE id = %s"""
 
         
         try:
-            cursor.executemany(sql, profile)
+            cursor.execute(sql, data)
+            my_db.commit()
             result = cursor.fetchall()
             
         except Exception as e:
             return e
+        if(my_db.is_connected()):
+            cursor.close()
+            my_db.close()
+            
         
         return result
 
@@ -212,7 +165,7 @@ class Game(Database):
         my_db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="mysql",
+            password="",
             database="automation"
             )
         insert_history = """INSERT INTO automation.game_history
@@ -226,8 +179,9 @@ class Game(Database):
             return e
         my_db.commit()
         print("Data inserted successfully.")
-
+        response = cursor.lastrowid
         if(my_db.is_connected()):
             cursor.close()
             my_db.close()
-            print("MySQL connection is closed")
+            
+        return response
