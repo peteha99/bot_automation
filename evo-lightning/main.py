@@ -38,7 +38,6 @@ while True:
         while bot.grab_img().getpixel(Coordinate().betStatRound) == Status().redBetReady and bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
             time.sleep(3)
             if(bot.grab_img().getpixel(Coordinate().trackHistory) != Status().redWin and waitingRound == False):
-                print("LOSE")
                 color = "GREEN"
                 if(bot.grab_img().getpixel(Coordinate().trackHistory) == Status().blackWin):
                     color = "BLACK"
@@ -46,13 +45,12 @@ while True:
                 loseCount = loseCount + 1
                 loseStack = loseStack + 1
                 winStack = 0
+                tmpBet = tmpBet + 1
                 resGameHistory = game.save_game_history(gameHistoryData)
                 print("loseCount",loseCount)
             elif (bot.grab_img().getpixel(Coordinate().trackHistory) == Status().redWin and waitingRound == False):
-                loseCount = 0
-                loseStack = 0
+                
                 tmpBet = 0
-                print("WIN")
                 print("loseCount",loseCount)
                 winStack = winStack + 1
                 gameHistoryData = [('RED',winStack,timestamp)]
@@ -74,7 +72,9 @@ while True:
                 dataProfile = profile.all_profile()
                 dataProfiles = list(dataProfile)
                 calculate = True
-            
+                loseCount = 0
+                loseStack = 0
+
             if(betFinish == False):
                 tmpData = []
                 for i in range(len(dataProfiles)):
@@ -87,9 +87,8 @@ while True:
                     tempBalance = item[balance] - betStack
                     profile.update_profile(tempBalance, item[0])
                     time.sleep(0.1)
-                if(loseStack > 4 or loseStack == 0):
-                    tmpBet = tmpBet + 1
-                    bot.running_real(tmpBet,10,3)
+                # if(loseStack > 4 or loseStack == 0):
+                bot.running_real(loseCount,10,4)
                 print("betStack")
                 print(betStack)
                 dataProfile = profile.all_profile()

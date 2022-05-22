@@ -67,7 +67,6 @@ class Bot():
         if(loseCount <= maxLoseCount):
             bet = 1
             while(loseCount):
-                print(bet, end =" ")
                 bet*=2
                 loseCount-=1
             pyautogui.moveTo(Coordinate().bet10)
@@ -76,7 +75,7 @@ class Bot():
             time.sleep(0.5)
             pyautogui.moveTo(Coordinate().redBet)
             Bot().mouse_action(bet)
-            print("bet ",bet)
+            print("real bet ",bet)
             time.sleep(0.5)
             pyautogui.moveTo(Coordinate().comfirm)
             time.sleep(0.5)
