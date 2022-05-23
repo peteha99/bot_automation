@@ -36,7 +36,7 @@ while True:
         calculate = False
         print("in loop connect")
         while bot.grab_img().getpixel(Coordinate().betStatRound) == Status().redBetReady and bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
-            time.sleep(3)
+            time.sleep(2)
             if(bot.grab_img().getpixel(Coordinate().trackHistory) != Status().redWin and waitingRound == False):
                 color = "GREEN"
                 if(bot.grab_img().getpixel(Coordinate().trackHistory) == Status().blackWin):
@@ -81,14 +81,13 @@ while True:
                     tmpData.append((dataProfiles[i][id],resGameHistory,isWin,now))
                 profile.profile_history_insert(tuple(tmpData))
                 print("start bet")
-                tempDataLoop = []
                 for item in dataProfiles:
                     betStack = bot.running(loseCount,betPrice,item[solutionCode])
                     tempBalance = item[balance] - betStack
                     profile.update_profile(tempBalance, item[0])
                     time.sleep(0.1)
                 # if(loseStack > 4 or loseStack == 0):
-                bot.running_real(loseCount,10,4)
+                # bot.running_real(loseCount,10,5)
                 print("betStack")
                 print(betStack)
                 dataProfile = profile.all_profile()

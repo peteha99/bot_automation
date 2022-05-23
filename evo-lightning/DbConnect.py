@@ -83,7 +83,7 @@ class Profile(Database):
             database="automation"
             )
         cursor = my_db.cursor()
-        sql = "SELECT * FROM profile ORDER BY id {}".format(mode)
+        sql = "SELECT * FROM profile ORDER BY solution_code {}".format(mode)
 
         try:
             cursor.execute(sql)

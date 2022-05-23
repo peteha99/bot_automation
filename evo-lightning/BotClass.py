@@ -26,14 +26,14 @@ class Bot():
         action = pyautogui
         action.moveTo(Coordinate().closeTab)
         action.click(clicks=1)
-        time.sleep(1)
+        time.sleep(5)
         action.moveTo(Coordinate().playGame)
         action.click(clicks=1)
         action.moveTo(Coordinate().fullScreen)
         action.click(clicks=1)
         action.press("down",2)
         action.moveTo(500,912)
-        time.sleep(2)
+        time.sleep(5)
         action.moveTo(451,979)
         action.click(clicks=1)
         time.sleep(7)
@@ -59,7 +59,9 @@ class Bot():
             # time.sleep(0.5)
             bet = betPrice * bet
         else :
-           print("wait for bet")
+           print("wait for bet ")
+           print(maxLoseCount)
+
         return bet
 
     def running_real(self,loseCount,betPrice,maxLoseCount):

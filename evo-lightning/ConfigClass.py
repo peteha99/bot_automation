@@ -16,7 +16,7 @@ class Coordinate():
     blackBet = (750,865)#
     greenBackground = (345,1003)#
     trackHistory = (1381,188)#
-    betStatRound = (159,716)#
+    betStatRound = (737,766)#
     display = (1554,80)
     
 class Status():
@@ -26,4 +26,4 @@ class Status():
     blackWin = (119,119,119)#
     greenWin = (22, 105, 88)
     redBetWaiting = (42, 78, 70)#
-    redBetReady = (22, 105, 88)#
+    redBetReady = (181, 28, 18)#
