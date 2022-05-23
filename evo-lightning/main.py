@@ -36,7 +36,7 @@ while True:
         calculate = False
         print("in loop connect")
         while bot.grab_img().getpixel(Coordinate().betStatRound) == Status().redBetReady and bot.grab_img().getpixel(Coordinate().greenBackground) == Status().connect:
-            time.sleep(2)
+            time.sleep(3)
             if(bot.grab_img().getpixel(Coordinate().trackHistory) != Status().redWin and waitingRound == False):
                 color = "GREEN"
                 if(bot.grab_img().getpixel(Coordinate().trackHistory) == Status().blackWin):
@@ -87,7 +87,7 @@ while True:
                     profile.update_profile(tempBalance, item[0])
                     time.sleep(0.1)
                 # if(loseStack > 4 or loseStack == 0):
-                # bot.running_real(loseCount,10,5)
+                # bot.running_real(loseCount,10,10)
                 print("betStack")
                 print(betStack)
                 dataProfile = profile.all_profile()
